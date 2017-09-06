@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="addrBook">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Address Book</title>
+
+    <script src="./js/load.js"></script>
+    <link rel='stylesheet prefetch' href='https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css'>
+    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/me.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<body onload="myFunction()">
+    <div class="row">
+        <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="lading"></div>
+        </div>
+    </div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+       <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Address Book</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+     </ul>
+    <ul class="nav navbar-nav navbar-right">
+      
+      <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+    </ul>
+  </div>
+</nav>
+        <div class="container" ng-controller="myCtrl">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h3 class="text-center">Phone Book</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group has-info has-feedback">
+                            <label for="seacrh" class="col-sm-2 control-label">Search: </label>
+                            <div class="col-sm-5">
+                                <input type="text" name="search" ng-model="test" class="form-control">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Address</th>
+                                    <th>Phone Number</th>
+                                    <th>Handle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in contacts | filter:test">
+                                    <td><span ng-hide="showMe($index)">{{x.First_Name}}</span><input text="text" class="form-control input-sm" ng-model="x.First_Name" ng-show="showMe($index)" required/></td>
+                                    <td><span ng-hide="showMe($index)">{{x.Last_Name}}</span><input text="text" class="form-control input-sm" ng-model="x.Last_Name" ng-show="showMe($index)" required /></td>
+                                     <td><span ng-hide="showMe($index)">{{x.Address}}</span><input text="text" class="form-control input-sm" ng-model="x.Address" ng-show="showMe($index)" required /></td>
+                                    <td><span ng-hide="showMe($index)">{{x.Tel}}</span><input text="text" class="form-control input-sm" ng-model="x.tel" ng-show="showMe($index)" required /></td>
+                                    <td><button ng-click="removeItem(x._id)"><span class="glyphicon glyphicon-trash"></span>&nbsp;</button>/
+                                        <button ng-click="change()" ng-hide="showMe($index)"> <span class="glyphicon glyphicon-edit"></span></a><a href="#" ng-click="save()" ng-show="showMe($index)">&nbsp;<span class="glyphicon glyphicon-ok"></span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <span>First Name：</span>
+                            <input type="text" class="form-control" ng-model="contact.First_Name" required />
+                        </div>
+                        <div class="form-group">
+                            <span>Last Name：</span>
+                            <input type="text" class="form-control" ng-model="contact.Last_Name" required />
+                        </div>
+                        <div class="form-group">
+                            <span>Address：</span>
+                            <input type="text" class="form-control" ng-model="contact.Address" />
+                        
+                        </div>
+                        <center>
+                        <div class="form-group">
+                            <span>Tel：</span>
+                            <input type="text" class="form-control" ng-model="contact.Tel" required />
+                        </div>
+                        <input type="button" class="btn btn-primary btn-sm" value="Add" ng-click="addItem(contact)" />
+                        
+                        </center>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="text-center">Hi! Users</h3>
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAnZAAAAJDk5YTlkYTFiLTA0OWItNGQ1Ni1hYjdkLTkyYWY4ZjUwNTgwZg.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>Juhi Shaw</h4>
+                                    <h4 class="subheading">UI Designer</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+                                        I love to design sites, this is a contact App which is one of my running project.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="https://dhh0yoio3ikfv.cloudfront.net/blog/wp-content/uploads/sites/2/2016/01/MEAN-stack-bluepi.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>MEAN Stack</h4>
+                                    <h4 class="subheading">Developing Tool</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+                                        This site is build using MEAN Stack that stands for MongoDb, ExpressJS, NodeJS and AngularJS
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="http://icons.iconarchive.com/icons/dtafalonso/ios8/512/Contacts-icon.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>Contact App</h4>
+                                    <h4 class="subheading">Need?</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+                                        This Project was developed as one of my learning projects but has its advantages when it comes to storing contacts.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="https://cdn4.iconfinder.com/data/icons/ios7-active-basic/512/future_projects_time_travel-256.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>Advancements</h4>
+                                    <h4 class="subheading">Future Scope</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+                                        Soon i will be adding the address feature with the googlemapping technique so that pin point locations can be shown and login + suggesion box will be made.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+           
+            
+        </div>
+         <hr />
+        <footer>
+                  <div class="verybottom">
+                <div class="container1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="aligncenter">
+                                <ul class="social-network social-circle">
+                                    <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </footer>
+    </div>
+</body>
+<script src='https://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js'></script>
+<script src="./js/app.js"></script>
+
+</html>
